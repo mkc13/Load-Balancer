@@ -8,7 +8,6 @@ This project implements a self-healing, energy-aware, multi-cloud-ready load bal
 
 - ⚙️ Intelligent traffic routing
 - 🚦 Health checks and fault tolerance
-- 🌍 Multi-cloud support (AWS, GCP, Azure)
 - 📈 Real-time metrics via Prometheus + Grafana
 - 🧪 Load testing using K6
 - 🐳 Docker Compose-based setup
