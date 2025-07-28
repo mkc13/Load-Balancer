@@ -27,7 +27,15 @@ cd Load-Balancer
 ```
 
 ### 2. Start All Services with Docker
+Before running Prometheus, make sure to update the IP addresses in the prometheus.yml file under the targets section.
 
+👉 Replace the default IPs with your local machine's IP address where the servers and load balancer are running.
+
+You can find your IP using:
+
+On Linux/macOS: ip addr
+
+On Windows: ipconfig
 ```bash
 docker-compose up --build
 ```
