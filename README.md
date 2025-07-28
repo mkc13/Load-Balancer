@@ -15,30 +15,7 @@ This project implements a self-healing, energy-aware, multi-cloud-ready load bal
 
 ---
 
-## 🗂️ Project Structure
 
-```
-NeuraBalancer/
-│
-├── backend/                  # REST API to configure and monitor the system
-│   ├── cmd/api/             # Main API server
-│   └── internal/            # Handlers, services, utilities
-│
-├── load-balancer/           # Custom pluggable load balancer (Node.js/TS)
-│
-├── scripts/                 # Utility scripts for DB migration, etc.
-│
-├── grafana/                 # Custom Grafana provisioning
-│
-├── prometheus/              # Prometheus config
-│
-├── test/                    # K6 load testing scripts
-│
-├── docker-compose.yml
-└── README.md
-```
-
----
 
 ## 🚀 How to Run the Project
 
@@ -90,9 +67,8 @@ Change password after login.
 4. View:
    - Request latency
    - Response status codes
-   - CPU/memory usage
    - Route-wise request flow
-
+![Poster](./docs/grafana.png)
 ---
 
 ## 🧪 Load Testing with K6
@@ -100,10 +76,11 @@ Change password after login.
 ### Run a test:
 
 ```bash
-k6 run test/loadtest.js
+k6 run test-load.js
+![Poster](./docs/tester.png)
 ```
 
-You can modify `loadtest.js` to increase VUs, duration, or endpoints.
+You can modify `test-load.js` to increase VUs, duration, or endpoints.
 
 ---
 
