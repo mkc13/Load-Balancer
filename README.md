@@ -77,9 +77,8 @@ Change password after login.
 
 ```bash
 k6 run test-load.js
-![Poster](./docs/tester.png)
 ```
-
+![Poster](./docs/tester.png)
 You can modify `test-load.js` to increase VUs, duration, or endpoints.
 
 ---
