@@ -16,78 +16,38 @@ This project implements a self-healing, energy-aware, multi-cloud-ready load bal
 
 
 
-## 🚀 How to Run the Project
-
-### 1. Clone the Repository
-
-```bash
-git clone https://github.com/mkc13/Load-Balancer.git
-cd Load-Balancer
-```
-
-### 2. Start All Services with Docker
-Before running Prometheus, make sure to update the IP addresses in the prometheus.yml file under the targets section.
-
-👉 Replace the default IPs with your local machine's IP address where the servers and load balancer are running.
-
-You can find your IP using:
-
-On Linux/macOS: ip addr
-
-On Windows: ipconfig
-```bash
-docker-compose up --build
-```
-
-This will run the following containers:
-
-- `load-balancer`: Intelligent load balancer (port 8080)
-- `backend-api`: Admin API (port 3000)
-- `redis`, `postgres`, `prometheus`, `grafana`
-
-### 3. Access Services
-
-| Service         | URL                          |
-|----------------|-------------------------------|
-| Load Balancer   | http://localhost:8080         |
-| Admin API       | http://localhost:3000         |
-| Grafana         | http://localhost:3000         |
-| Prometheus      | http://localhost:9091         |
 
 ---
 
-## 🔐 Grafana Login
+## 🚀 How to Use
 
-| Username | Password |
-|----------|----------|
-| admin    | admin    |
+By default, the load balancer expects 3 backend servers to be running on ports `8081`, `8082`, and `8083`.
 
-Change password after login.
-
----
-
-## 📊 Viewing Metrics in Grafana
-
-1. Visit `http://localhost:3000`
-2. Login (admin/admin)
-3. Select the "Load Balancer Dashboard"
-4. View:
-   - Request latency
-   - Response status codes
-   - Route-wise request flow
-![Poster](./docs/grafana.png)
----
-
-## 🧪 Load Testing with K6
-
-### Run a test:
-
+### 🔧 Running Backend Servers:
 ```bash
-k6 run test-load.js
+npm run dev:be 8081
+npm run dev:be 8082
+npm run dev:be 8083
 ```
-![Poster](./docs/tester.png)
-You can modify `test-load.js` to increase VUs, duration, or endpoints.
 
+### 🧠 Running the Load Balancer:
+```bash
+npm run dev:lb 8000
+```
+
+Now, start sending requests to the load balancer at:  
+🔗 `http://localhost:8000`
+
+---
+
+## 📊 Monitoring with Prometheus and Grafana
+
+## 1. Start Monitoring Services:
+```bash
+docker-compose up -d prometheus grafana
+```
+
+### 2. Grafana Access:
 ---
 
 ## 📈 Prometheus Metrics
@@ -104,6 +64,65 @@ Use queries like:
 - `load_balancer_latency_seconds`
 
 ---
+
+- Visit: [http://localhost:3000](http://localhost:3000)
+- Login:
+  - **Username**: `admin`
+  - **Password**: `admin` (change after first login)
+-Import Dashboard (Optional)
+Click the "+" icon in the left menu → Import
+
+Use any dashboard ID from Grafana Dashboards
+
+For example: 1860 for a general Prometheus Node Exporter dashboard
+- Explore dashboards to visualize metrics like:
+  - Request count per server
+  - Response times
+  - Load distribution
+
+📸 Example Dashboard Screenshot:
+![Grafana Screenshot](docs/grafana.png)
+
+🛠️ Don’t forget to **change the IP addresses** in `prometheus.yml` `targets` section to your actual backend and load balancer IPs.
+
+---
+
+## 🧪 Load Testing using K6
+
+### Run the K6 Test:
+```bash
+k6 run tests/test.js
+```
+
+This script simulates multiple users hitting the load balancer and helps visualize how traffic is handled.
+
+📸 Example Load Test Output:
+![K6 Screenshot](docs/tester.png)
+
+---
+
+## ⚙️ Customizable Load Balancing Algorithms
+
+The system supports modular plug-and-play for algorithms like:
+- 🔁 Round Robin
+- 📉 Least Connections
+- 🎲 Random
+
+You can add your own strategy by implementing a class in the `algorithms` folder and plugging it into the load balancer config.
+
+---
+
+## 🧪 Load Testing with K6
+
+### Run a test:
+
+```bash
+k6 run test-load.js
+```
+![Poster](./docs/tester.png)
+You can modify `test-load.js` to increase VUs, duration, or endpoints.
+
+
 
 ## 🔍 Monitoring Load Balancer Health
 
